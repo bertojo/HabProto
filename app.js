@@ -6,6 +6,7 @@ var port = 3000;
 var home = require("./routes/home");
 var about = require("./routes/about");
 var jsonTest = require("./routes/jsonTest");
+var htmlTest = require("./routes/htmlTest");
 
 app.listen(port, function(err, res) {   //callback function
 	if (err) {
@@ -15,6 +16,14 @@ app.listen(port, function(err, res) {   //callback function
 	}
 });
 
+
+//server pipeline starts here
 app.use("/", home);
 app.use("/about", about);
 app.use("/jsonTest", jsonTest);
+app.use("/htmlTest", htmlTest);
+
+//end of pipeline, means file not found  --> 404
+app.use(function(req, res) {
+	res.sendStatus(404);
+});
